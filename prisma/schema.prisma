@@ -31,7 +31,7 @@ model Ong {
   @@map("ongs")
 }
 
-model Adress {
+model Address {
   id        String   @id @default(uuid())
   street    String
   number    Int
