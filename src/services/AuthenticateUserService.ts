@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import { User } from '@prisma/client';
 
 import { database } from '../database';
+import { AppError } from '../errors/AppError';
 
 type IAuthenticateUserService = {
   email: string;
@@ -17,13 +18,13 @@ export class AuthenticateUserService {
     });
 
     if (!user) {
-      throw new Error('Invalid credentials');
+      throw new AppError('Invalid credentials');
     }
 
     const correctPassword = await bcrypt.compare(password, user.password);
 
     if (!correctPassword) {
-      throw new Error('Invalid credentials');
+      throw new AppError('Invalid credentials');
     }
 
     return user;

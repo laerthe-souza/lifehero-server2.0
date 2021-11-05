@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import { User } from '@prisma/client';
 
 import { database } from '../database';
+import { AppError } from '../errors/AppError';
 
 type ICreateUserParams = {
   name: string;
@@ -16,7 +17,7 @@ export class CreateUserService {
     });
 
     if (userAlreadyExists) {
-      throw new Error('User already exists');
+      throw new AppError('User already exists');
     }
 
     const hashedPassword = await bcrypt.hash(password, 8);
