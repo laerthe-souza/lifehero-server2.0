@@ -15,8 +15,6 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  Address Address[]
-
   @@map("users")
 }
 
@@ -30,7 +28,7 @@ model Ong {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  Address Address[]
+  address Address[]
 
   @@map("ongs")
 }
@@ -43,13 +41,11 @@ model Address {
   state     String
   country   String
   zipcode   String
-  user      User     @relation(fields: [userId], references: [id])
   ong       Ong      @relation(fields: [ongId], references: [id])
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  userId String @map("user_id")
-  ongId  String @map("ong_id")
+  ongId String @map("ong_id")
 
   @@map("adresses")
 }
