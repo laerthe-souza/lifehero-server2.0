@@ -3,14 +3,23 @@ import { User } from '@prisma/client';
 
 import { database } from '../database';
 import { AppError } from '../errors/AppError';
+import { generateToken } from '../utils/generateToken';
 
-type IAuthenticateUserService = {
+type IAuthenticateUserParams = {
   email: string;
   password: string;
 };
 
+type IAuthenticateUserResponse = {
+  user: User;
+  token: string;
+};
+
 export class AuthenticateUserService {
-  async execute({ email, password }: IAuthenticateUserService): Promise<User> {
+  async execute({
+    email,
+    password,
+  }: IAuthenticateUserParams): Promise<IAuthenticateUserResponse> {
     const user = await database.user.findFirst({
       where: {
         email,
@@ -27,6 +36,8 @@ export class AuthenticateUserService {
       throw new AppError('Invalid credentials');
     }
 
-    return user;
+    const token = generateToken(user.id);
+
+    return { user, token };
   }
 }
