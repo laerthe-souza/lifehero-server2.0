@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 
-import { ListUsersService } from '../services/ListUsersService';
 import { CreateUserService } from '../services/CreateUserService';
+import { DeleteUserService } from '../services/DeleteUserService';
+import { ListUsersService } from '../services/ListUsersService';
 
 export class UsersController {
   async index(request: Request, response: Response) {
@@ -24,5 +25,15 @@ export class UsersController {
     });
 
     return response.status(201).json(user);
+  }
+
+  async delete(request: Request, response: Response) {
+    const { id } = request.params;
+
+    const deleteUser = new DeleteUserService();
+
+    await deleteUser.execute(id);
+
+    return response.status(204).send();
   }
 }
