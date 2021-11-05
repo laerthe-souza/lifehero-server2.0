@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import { ListUsersService } from '../services/ListUsersService';
 import { CreateUserService } from '../services/CreateUserService';
 import { DeleteUserService } from '../services/DeleteUserService';
 import { ListUsersService } from '../services/ListUsersService';
