@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 import { ListUsersService } from '../services/ListUsersService';
 import { CreateUserService } from '../services/CreateUserService';
 import { DeleteUserService } from '../services/DeleteUserService';
-import { ListUsersService } from '../services/ListUsersService';
 
 export class UsersController {
   async index(request: Request, response: Response) {
@@ -29,7 +28,7 @@ export class UsersController {
   }
 
   async delete(request: Request, response: Response) {
-    const { id } = request.params;
+    const { id } = request.user;
 
     const deleteUser = new DeleteUserService();
 
