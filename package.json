@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsnd --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+    "dev": "tsnd --exit-child --transpile-only --ignore-watch node_modules --respawn src/server.ts",
     "commit": "cz",
     "check-release": "standard-version --dry-run",
     "release": "standard-version"
