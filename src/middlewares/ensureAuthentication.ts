@@ -4,7 +4,9 @@ import { verify } from 'jsonwebtoken';
 import { jwtConfig } from '../configs/jwt';
 
 type IPayload = {
-  subject: string;
+  sub: string;
+  iat: number;
+  exp: number;
 };
 
 export function ensureAuthentication(
@@ -25,9 +27,9 @@ export function ensureAuthentication(
   }
 
   try {
-    const { subject } = verify(token, jwtConfig.secret) as IPayload;
+    const { sub } = verify(token, jwtConfig.secret) as IPayload;
 
-    request.user.id = subject;
+    Object.assign(request, { user: { id: sub } });
 
     return next();
   } catch (error) {
