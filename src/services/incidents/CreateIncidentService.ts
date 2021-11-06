@@ -6,7 +6,7 @@ type ICreateIncidentParams = {
   title: string;
   description: string;
   value: number;
-  images: string[];
+  images: Express.Multer.File[];
   ongId: string;
 };
 
@@ -26,12 +26,18 @@ export class CreateIncidentService {
       throw new Error('Incident title already exists');
     }
 
+    const imagesUrl = images.map(image => {
+      return `http://localhost:3333/uploads/${image.filename}`;
+    });
+
+    const formattedValue = Number(value * 100);
+
     const incident = await database.incident.create({
       data: {
         title,
         description,
-        value,
-        images,
+        value: formattedValue,
+        images: imagesUrl,
         ongId,
       },
     });

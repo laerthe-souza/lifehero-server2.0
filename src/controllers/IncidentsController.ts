@@ -16,6 +16,7 @@ export class IncidentsController {
   async create(request: Request, response: Response) {
     const { id } = request.user;
     const { title, description, value } = request.body;
+    const images = request.files as Express.Multer.File[];
 
     const createIncident = new CreateIncidentService();
 
@@ -23,7 +24,7 @@ export class IncidentsController {
       title,
       description,
       value,
-      images: [''],
+      images,
       ongId: id,
     });
 
