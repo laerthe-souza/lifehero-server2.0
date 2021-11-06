@@ -7,6 +7,7 @@ const incidentsRoutes = Router();
 
 const incidentsController = new IncidentsController();
 
+incidentsRoutes.get('/', incidentsController.index);
 incidentsRoutes.post('/', ensureAuthentication, incidentsController.create);
 incidentsRoutes.delete(
   '/:id',
