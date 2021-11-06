@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
+
 import { CreateOngService } from '../services/ongs/CreateOngService';
+import { DeleteOngService } from '../services/ongs/DeleteOngService';
 
 export class OngsController {
   async create(request: Request, response: Response) {
@@ -34,5 +36,17 @@ export class OngsController {
     });
 
     return response.json({ ong, token });
+  }
+
+  async delete(request: Request, response: Response) {
+    const { id } = request.user;
+
+    const deleteOng = new DeleteOngService();
+
+    await deleteOng.execute(id);
+
+    return response
+      .status(204)
+      .json({ status: 'success', message: 'ONG deleted successfully' });
   }
 }
