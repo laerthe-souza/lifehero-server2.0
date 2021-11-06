@@ -7,6 +7,7 @@ const ongsRoutes = Router();
 
 const ongsController = new OngsController();
 
+ongsRoutes.get('/', ongsController.index);
 ongsRoutes.post('/', ongsController.create);
 ongsRoutes.delete('/', ensureAuthentication, ongsController.delete);
 

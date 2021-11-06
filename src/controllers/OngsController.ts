@@ -2,8 +2,17 @@ import { Request, Response } from 'express';
 
 import { CreateOngService } from '../services/ongs/CreateOngService';
 import { DeleteOngService } from '../services/ongs/DeleteOngService';
+import { ListOngsService } from '../services/ongs/ListOngsService';
 
 export class OngsController {
+  async index(request: Request, response: Response) {
+    const listOngs = new ListOngsService();
+
+    const ongs = await listOngs.execute();
+
+    return response.json(ongs);
+  }
+
   async create(request: Request, response: Response) {
     const {
       name,
