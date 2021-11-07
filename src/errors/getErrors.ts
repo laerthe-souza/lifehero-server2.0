@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
+import { logger } from '../utils/logger';
 import { AppError } from './AppError';
 
 export function getErrors(
@@ -15,7 +16,7 @@ export function getErrors(
     });
   }
 
-  console.error(error);
+  logger.error(error);
 
   return response.status(500).json({
     status: 'error',
