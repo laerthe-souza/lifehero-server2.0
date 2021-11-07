@@ -3,6 +3,7 @@ import { User } from '@prisma/client';
 
 import { database } from '../database';
 import { AppError } from '../errors/AppError';
+import { generateToken } from '../utils/generateToken';
 
 type ICreateUserParams = {
   name: string;
@@ -10,8 +11,17 @@ type ICreateUserParams = {
   password: string;
 };
 
+type ICreateUserResponse = {
+  user: User;
+  token: string;
+};
+
 export class CreateUserService {
-  async execute({ name, email, password }: ICreateUserParams): Promise<User> {
+  async execute({
+    name,
+    email,
+    password,
+  }: ICreateUserParams): Promise<ICreateUserResponse> {
     const userAlreadyExists = await database.user.findFirst({
       where: { email },
     });
@@ -30,6 +40,8 @@ export class CreateUserService {
       },
     });
 
-    return user;
+    const token = generateToken(user.id);
+
+    return { user, token };
   }
 }

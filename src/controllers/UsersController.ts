@@ -19,13 +19,13 @@ export class UsersController {
 
     const createUser = new CreateUserService();
 
-    const user = await createUser.execute({
+    const { user, token } = await createUser.execute({
       name,
       email,
       password,
     });
 
-    return response.custom(201, User, user);
+    return response.custom(201, User, { ...user, token });
   }
 
   async delete(request: Request, response: Response) {
