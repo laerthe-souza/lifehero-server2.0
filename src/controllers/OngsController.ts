@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { CreateOngService } from '../services/ongs/CreateOngService';
 import { DeleteOngService } from '../services/ongs/DeleteOngService';
 import { ListOngsService } from '../services/ongs/ListOngsService';
+import { Ong } from '../views/Ong';
 
 export class OngsController {
   async index(request: Request, response: Response) {
@@ -10,7 +11,7 @@ export class OngsController {
 
     const ongs = await listOngs.execute();
 
-    return response.json(ongs);
+    return response.custom(200, Ong, ongs);
   }
 
   async create(request: Request, response: Response) {
@@ -44,7 +45,7 @@ export class OngsController {
       country,
     });
 
-    return response.json({ ong, token });
+    return response.custom(200, Ong, { ...ong, token });
   }
 
   async delete(request: Request, response: Response) {

@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { CreateIncidentService } from '../services/incidents/CreateIncidentService';
 import { DeleteIncidentService } from '../services/incidents/DeleteIncidentService';
 import { ListIncidentsService } from '../services/incidents/ListIncidentsService';
+import { Incident } from '../views/Incident';
 
 export class IncidentsController {
   async index(request: Request, response: Response) {
@@ -10,7 +11,7 @@ export class IncidentsController {
 
     const incidents = await listIncidents.execute();
 
-    return response.status(200).json(incidents);
+    return response.custom(200, Incident, incidents);
   }
 
   async create(request: Request, response: Response) {
@@ -28,7 +29,7 @@ export class IncidentsController {
       ongId: id,
     });
 
-    return response.status(201).json(incident);
+    return response.custom(201, Incident, incident);
   }
 
   async delete(request: Request, response: Response) {

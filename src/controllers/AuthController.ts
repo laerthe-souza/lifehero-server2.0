@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 
 import { AuthenticateUserService } from '../services/AuthenticateUserService';
 import { AuthenticateOngService } from '../services/ongs/AuthenticateOngService';
+import { Ong } from '../views/Ong';
+import { User } from '../views/User';
 
 export class AuthController {
   async ong(request: Request, response: Response) {
@@ -14,7 +16,7 @@ export class AuthController {
       password,
     });
 
-    return response.status(200).json({ ong, token });
+    return response.custom(201, Ong, { ...ong, token });
   }
 
   async create(request: Request, response: Response) {
@@ -27,6 +29,6 @@ export class AuthController {
       password,
     });
 
-    return response.status(200).json({ user, token });
+    return response.custom(201, User, { ...user, token });
   }
 }

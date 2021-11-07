@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { ListUsersService } from '../services/ListUsersService';
 import { CreateUserService } from '../services/CreateUserService';
 import { DeleteUserService } from '../services/DeleteUserService';
+import { User } from '../views/User';
 
 export class UsersController {
   async index(request: Request, response: Response) {
@@ -10,7 +11,7 @@ export class UsersController {
 
     const users = await listUsers.execute();
 
-    return response.status(200).json(users);
+    return response.custom(200, User, users);
   }
 
   async create(request: Request, response: Response) {
@@ -24,7 +25,7 @@ export class UsersController {
       password,
     });
 
-    return response.status(201).json(user);
+    return response.custom(201, User, user);
   }
 
   async delete(request: Request, response: Response) {
