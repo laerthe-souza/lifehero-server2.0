@@ -4,6 +4,7 @@ import 'express-async-errors';
 
 import path from 'path';
 import express from 'express';
+import morgan from 'morgan';
 
 import { getErrors } from './errors/getErrors';
 import { routes } from './routes';
@@ -11,6 +12,7 @@ import { customResponse } from './middlewares/customResponse';
 
 const app = express();
 
+app.use(morgan('short'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(customResponse);
