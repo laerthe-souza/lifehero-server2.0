@@ -6,7 +6,7 @@ const authRoutes = Router();
 
 const authController = new AuthController();
 
-authRoutes.post('/', authController.create);
+authRoutes.post('/users', authController.user);
 authRoutes.post('/ongs', authController.ong);
 
 export { authRoutes };

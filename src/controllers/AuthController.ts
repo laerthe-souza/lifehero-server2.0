@@ -19,7 +19,7 @@ export class AuthController {
     return response.custom(201, Ong, { ...ong, token });
   }
 
-  async create(request: Request, response: Response) {
+  async user(request: Request, response: Response) {
     const { email, password } = request.body;
 
     const authenticateUser = new AuthenticateUserService();
