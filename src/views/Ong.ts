@@ -1,8 +1,8 @@
-import { Exclude, Transform } from 'class-transformer';
+import { Exclude, Transform, Type } from 'class-transformer';
 import { ptBR } from 'date-fns/locale';
 import { format } from 'date-fns';
 
-import { Incident } from '.prisma/client';
+import { Incident } from './Incident';
 
 export class Ong {
   id: string;
@@ -18,6 +18,7 @@ export class Ong {
 
   phone: string;
 
+  @Type(() => Incident)
   incidents: Incident[];
 
   @Transform(createdAt =>
